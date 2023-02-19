@@ -1,0 +1,31 @@
+class Solution {
+    private static int[] dr = new int[]{-1, 0, 1, 0}; 
+    private static int[] dc = new int[]{0, 1, 0, -1};
+
+    public int[][] floodFill(int[][] image, int r, int c, int color) {
+        int rows=image.length;
+        int cols=image[0].length;
+        boolean visited[][]=new boolean[rows][cols];
+         if(r < 0 || r >= rows || c < 0 || c >= cols || image[r][c] == color)
+        return image;
+        dfs(image,r,c,color,visited);
+        return image;
+
+    }
+    public static void dfs(int[][] image,int r,int c,int newcolor,boolean visited[][]){
+        visited[r][c]=true;
+        int oldcolor=image[r][c];
+        image[r][c]=newcolor;
+        int rows=image.length;
+        int cols=image[0].length;
+        for(int i=0;i<4;i++){
+            int nr=r+dr[i];
+            int cr=c+dc[i];
+            if(nr<0 || nr>=rows || cr<0 || cr>=cols)continue;
+            if(visited[nr][cr]==false && image[nr][cr]==oldcolor){
+                dfs(image,nr,cr,newcolor,visited);
+            }
+        }
+
+    }
+}
